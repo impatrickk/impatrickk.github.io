@@ -1,104 +1,33 @@
-<!DOCTYPE HTML>
+---
+layout: default
+title: Home
+---
 
-<html>
-	<head>
-		<title>Patrick Lee</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="shortcut icon" href="images/favicon.ico" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body>
+<div class="posts">
+  {% for post in paginator.posts %}
+  <article class="post">
+    <h1 class="post-title">
+      <a href="{{ site.baseurl }}{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h1>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
+    {{ post.content }}
+  </article>
+  {% endfor %}
+</div>
 
-							<span class="fa fa-database fa-2x"></span>
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Patrick Lee</h1>
-								<p>Data Scientist in NYC</p>
-								<div class="social-links">
-									<a href="https://github.com/impatrickk"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
-									<a href="https://www.linkedin.com/in/patrickyslee"><i class="fa fa-linkedin fa-2x	" aria-hidden="true"></i></a>
-									<a href="mailto:pyl252%40nyu%2eedu?subject=Hello!&body="><i class="fa fa-envelope-o fa-2x	" aria-hidden="true"></i></a>
-								</div>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#about">About</a></li>
-								<li><a href="#projects">Projects</a></li>
-								<li><a href="./images/resume.pdf">Resume</a></li>
-							</ul>
-						</nav>
-					</header>
-
-				<!-- Main -->
-					<div id="main">
-
-						<!-- Intro -->
-							<article id="about">
-								<h2 class="major">About Me</h2>
-								<span class="image main"><img src="images/city.jpg" alt="" /></span>
-								<p>Graduating from New York University with a B.A. in Economics and a minor in Business Studies, I have worked in a variety of fields, including a stock brokerage firm, an animations marketing company, and a non-profit organization. In my most recent position, I leveraged my penchant for math as a Senior Actuarial Analyst at The Hartford Financial Services Group. Wanting to further develop my technical skills in the programming field, I pursued Data Science for its perfect combination of math and coding.</p>
-								<p>I am an experienced coder in Python and SQL and I'm eager to be challenged by the next dataset I can play with!</p>
-							</article>
-
-						<!-- Work -->
-							<article id="projects">
-								<h2 class="major">Projects</h2>
-								<!-- <p>Please check back later!</p> -->
-
-								<p>The Perfect Partner: Codenames AI Bot</p>
-								<span class="image main"><img src="images/gameboard_clicked2.png" /></span>
-								<p>Cody is a neural net trained bot that can play a popular boardgame called "Codenames" with human partners trained on their Facebook Messenger data. Cody has dual functionality so he can play as the codegiver as well as the guesser. The game is fully programmed in python from start to finish so Cody can play anytime effectively as your perfect partner.</p>
-								<!-- <a href="https://github.com/impatrickk/Codenames_AI_Bot" class="icon fa-github"><span class="label">GitHub</span></a> -->
-								<p></p>
-
-								<p>"The Office" Character Relationship Episode Recommender</p>
-								<span class="image main"><img src="images/official_floorplan3.png" /></span>
-								<p>Select two of your favorite characters and this Flask web app can recommend episodes where these two characters are relating to the most. This was achieved by using Natural Language Processing (TF-IDF and NMF topic modeling) on characters lines from the most popular show on Netflix... The Office!</p>
-								<a href="https://github.com/impatrickk/CharacterPair_Episode_Recommender" class="icon fa-github"><span class="label">GitHub</span></a>
-								<p></p>
-
-								<p>E-commerce Product Repurchasing Classifier</p>
-								<span class="image main"><img src="images/instacart_cover.png" /></span>
-								<p>Using data from a major online grocery retail player, we can use machine learning with random forest and XGBoost algorithm to predict whether or not a customer will repurchase a given product. The dataset was provided through Kaggle as part of a competition hosted by Instacart.</p>
-								<a href="https://github.com/impatrickk/Ecommerce_Repurchasing_Classifier" class="icon fa-github"><span class="label">GitHub</span></a>
-								<p></p>
-
-								<p>Are You a Star? (NBA All-Star Votes Predictor)</p>
-								<span class="image main"><img src="images/nba_cover.png" /></span>
-								<p>Every year, NBA players feel snubbed out of being an All-Star when they don't get enough votes albeit having a great statistical year. Wonder exactly what it takes to be voted into the NBA All-Star Game? Say no more! We can use linear regression to determine how a player season stats can be used to predict their All-Star vote counts. Now as a player, you can know what stats you need to boost and by how much to better your chances of being voted into the All-Star Game!</p>
-								<a href="https://github.com/impatrickk/AllStar_Vote_Calculator" class="icon fa-github"><span class="label">GitHub</span></a>
-
-							</article>
-
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; Patrick Y Lee 2020</a></p>
-
-					</footer>
-
-			</div>
-
-		<!-- BG -->
-			<div id="bg"></div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
